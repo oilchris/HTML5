@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="gb2312">
+<title>HTML5测试</title>
+<script type="text/javascript" src="app/jquery1.7.1.js"></script>
+</head>
+
+<body>
+
+
+<canvas id="diagonal" height="200" width="200"></canvas>
+
+<script type="text/javascript">
+
+//画线条
+function drawDiagonal(){
+	var canvas = document.getElementById('diagonal');
+	var context = canvas.getContext("2d");
+
+	context.beginPath();
+	
+	context.moveTo(70,140);
+	context.lineTo(140,70);
+
+	//绘制已定义的路径
+	context.stroke();
+	
+}
+
+window.addEventListener("load", drawDiagonal, true)
+
+</script>
+
+
+</body>
+</html>
