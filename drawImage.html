@@ -1,0 +1,124 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="gb2312">
+<title>HTML5测试</title>
+<script type="text/javascript" src="app/jquery1.7.1.js"></script>
+</head>
+<body>
+<canvas id="trails" style="border: 1px solid;"  width="400" height="600"> </canvas>
+<script type="text/javascript">
+
+//画线条
+function createCanopyPath(context){
+	//绘制树冠
+	context.beginPath();
+	context.moveTo(-25,-50);
+	context.lineTo(-10,-80);
+	context.lineTo(-20,-80);
+	context.lineTo(-5,-110);
+	context.lineTo(-15,-110);	
+	//绘制树顶
+	context.lineTo(0,-140);
+	context.lineTo(15,-110);
+	context.lineTo(5,-110);
+	context.lineTo(20,-80);
+	context.lineTo(10,-80);
+	context.lineTo(25,-50);
+	//闭合
+	context.closePath();
+}
+
+function drawTrails(){
+	var canvas = document.getElementById('trails');
+	var context = canvas.getContext("2d");
+	context.save();
+
+	context.translate(130,250);
+
+	createCanopyPath(context);
+
+	//加宽线条
+	context.lineWidth = 4;
+	//平滑路径的结合点
+	context.lineJoin = 'round';
+
+	//将颜色改成棕色
+	context.strokeStyle ='#663300';
+
+	//绘制
+	context.stroke();
+
+	//将填充色设置为绿色并填充树冠
+	context.fillStyle = '#339900';
+	context.fill();
+
+	//树枝
+	//context.fillStyle = '#663300';
+	//context.fillRect(-5, -50, 10, 50);
+	//树枝使用图片
+	context.drawImage(bark, -5, -50, 10,50) //x,y,width,height
+
+
+	//恢复原有的绘图状态
+	context.restore();
+
+
+
+
+
+	context.save();
+	context.translate(-10,350);
+	context.beginPath();
+	//第一条曲线向右上方弯曲
+	context.moveTo(0,0);
+	context.quadraticCurveTo(170,-50,260,-190);
+
+	//第二条曲线向右上方弯曲
+	context.quadraticCurveTo(310,-250,410,-250);
+	//将颜色改成棕色
+	context.strokeStyle ='#663300';
+	context.lineWidth=20;
+	context.stroke();
+	//恢复原有的绘图状态
+	context.restore();
+
+
+}
+
+var bark = new Image();
+bark.src = 'bark.jpg';
+//图片加载完成后，讲其显示在canvas上
+bark.onload = function(){
+	drawTrails();
+}
+
+
+window.addEventListener("load", drawTrails, true)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
+</body>
+</html>
