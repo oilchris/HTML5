@@ -18,6 +18,13 @@ gravel.onload = function () {
 
 
 
+var bark = new Image();
+bark.src = 'bark.jpg';
+//图片加载完成后，讲其显示在canvas上
+bark.onload = function(){
+	drawTrails();
+}
+
 
 
 
@@ -43,6 +50,47 @@ function createCanopyPath(context){
 
 //创建树对象绘制函数，以便重用
 function drawTree(context){
+
+
+    //创建用于填充树干的三阶水平渐变色
+    //保存canvas的当前状态
+    context.save();
+
+    //X值随着Y值得增加而增加，借助拉伸变换
+    //可以创建一棵用作阴影的倾斜的树
+    //应用了变换以后
+    //所有坐标都与矩阵
+
+
+/*
+transform参数	描述
+a				水平缩放绘图
+b				水平倾斜绘图
+c				垂直倾斜绘图
+d				垂直缩放绘图
+e				水平移动绘图
+f				垂直移动绘图
+*/
+    context.transform(1, 0,
+                      -0.5, 1,
+                      0, 0);
+
+    // Shrink the shadow down to 60% height in the Y dimension
+    //****放大缩小 scale(x,y)****
+    context.scale(1, 0.6);
+
+    // Set the tree fill to be black, but at only 20% alpha
+    context.fillStyle = 'rgba(0, 0, 0, 0.2)';
+    context.fillRect(-5, -50, 10, 50);
+
+    // Redraw the tree with the shadow effects applied
+    createCanopyPath(context);
+    context.fill();
+
+    // Restore the canvas state
+    context.restore();
+
+
 
 	//树枝 渐变开始
 
@@ -124,6 +172,12 @@ function drawTrails(){
 	//context.fillStyle = '#663300';
 	//context.fillRect(-5, -50, 10, 50);
 
+
+	context.save();
+	context.translate(130,250);
+	context.rotate(1);
+	context.drawImage(bark, -5, -50, 10,50);
+	context.restore();
 
 
 //===============================================
